@@ -50,12 +50,12 @@ when 'postgresql'
   database_connection[:username] = 'postgres'
   database_connection[:password] = node['postgresql']['password']['postgres']
 
-  bash "add_to_bashrc" do
+  bash "create_bb_db" do
     user "postgres"
     code <<-EOH
       export PGPASSWORD="#{database_connection[:password]}"
       /usr/pgsql-9.3/bin/createdb "#{settings['database']['name']}" -E 'utf8' -e -h 'localhost' -U "#{database_connection[:username]}" -p 5432
-      echo "CREATE USER #{settings['database']['user']} WITH PASSWORD '\#{settings['database']['password']}'\;GRANT ALL PRIVILEGES ON DATABASE #{settings['database']['name']} to #{settings['database']['user']}"
+      echo "CREATE USER #{settings['database']['user']} WITH PASSWORD \'#{settings['database']['password']}\';GRANT ALL PRIVILEGES ON DATABASE #{settings['database']['name']} to #{settings['database']['user']}"|/usr/bin/psql
     EOH
   end
 
