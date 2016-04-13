@@ -17,7 +17,7 @@ when 'mysql'
     bind_address settings['database']['host']
     # See: https://github.com/chef-cookbooks/mysql/pull/361
     port settings['database']['port'].to_s
-    data_dir node['mysql']['data_dir'] if node['mysql']['data_dir']
+    data_dir node['mysql']['data_dir'] 
     initial_root_password node['mysql']['server_root_password']
     action [:create, :start]
   end
@@ -47,22 +47,17 @@ when 'mysql'
     action [:create, :grant]
   end
 when 'postgresql'
-  include_recipe 'postgresql::server'
-  include_recipe 'database::postgresql'
   database_connection[:username] = 'postgres'
   database_connection[:password] = node['postgresql']['password']['postgres']
 
-  postgresql_database settings['database']['name'] do
-    connection database_connection
-    connection_limit '-1'
-    encoding 'utf8'
-    action :create
+  bash "add_to_bashrc" do
+    user "postgres"
+    code <<-EOH
+      export PGPASSWORD="#{database_connection[:password]}"
+      /usr/pgsql-9.3/bin/createdb "#{settings['database']['name']}" -E 'utf8' -e -h 'localhost' -U "#{database_connection[:username]}" -p 5432
+      echo "CREATE USER #{settings['database']['user']} WITH PASSWORD '\#{settings['database']['password']}'\;GRANT ALL PRIVILEGES ON DATABASE #{settings['database']['name']} to #{settings['database']['user']}"
+    EOH
   end
 
-  postgresql_database_user settings['database']['user'] do
-    connection database_connection
-    password settings['database']['password']
-    database_name settings['database']['name']
-    action [:create, :grant]
-  end
+
 end
