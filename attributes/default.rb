@@ -156,6 +156,7 @@ default['stash']['checksum'] =
   when '4.5.2' then 'cb3ee49ec20cd2f496dfbf0b8542a24c8db720226e3d80510b9fb4921968f89d'
   when '4.6.0' then '7dd309b5d17be41e3e2406276e14436136f9fd810655ceed6e08a72556e644aa'
   when '4.6.2' then 'a6260a139d794518ee0b7825f352144243f6da0a89f905cb8203c39516c63067'
+  when '4.8.4' then '11d0af3cbfd52912c16e6407c00f76e15920704260fb1367b4a65fc8fd0bb5b4'
   end
 
 # Data bag where credentials and other sensitive data could be stored (optional)
