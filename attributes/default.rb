@@ -158,6 +158,9 @@ default['stash']['checksum'] =
   when '4.6.2' then 'a6260a139d794518ee0b7825f352144243f6da0a89f905cb8203c39516c63067'
   when '4.8.4' then '11d0af3cbfd52912c16e6407c00f76e15920704260fb1367b4a65fc8fd0bb5b4'
   when '4.14.1' then '8cfdfb39624686837a02ad50ff18de28d3de5bb3f8642821ab5049fd197faf67'
+  when '5.4.1' then '45c225060eb9c70e634520613ef9c5025507588c095bc882f422f8ea568c1613'
+  when '5.4.2' then 'fc8b8587c3fbdf8b3d05300051b84b9a7120cfe69d1436d0ef0adcc02e3dd381'
+  when '5.5.1' then '25f943c05be1359494bcdd21d3a3140d67f8426551bf8c0a1b49182ca4183322'
   end
 
 # Data bag where credentials and other sensitive data could be stored (optional)
@@ -273,6 +276,7 @@ default['stash']['database']['user']     = node['stash']['product']
 # See `libraries/stash.rb` for code to set actual default port
 default['stash']['database']['port']     = nil
 
+default['stash']['jvm']['home']  = '/usr/lib/jvm/java'
 default['stash']['jvm']['minimum_memory']  = '512m'
 default['stash']['jvm']['maximum_memory']  = '768m'
 default['stash']['jvm']['maximum_permgen'] = '384m'

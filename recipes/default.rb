@@ -14,6 +14,7 @@ include_recipe "stash::#{platform}_#{node['stash']['install_type']}"
 include_recipe 'stash::configuration'
 include_recipe 'stash::tomcat_configuration'
 #include_recipe 'stash::apache2'
+
 include_recipe "stash::service_#{node['stash']['service_type']}"
 
 case node['stash']['backup']['strategy']

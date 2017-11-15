@@ -35,6 +35,15 @@ template server_xml_path do
   notifies :restart, "service[#{node['stash']['product']}]", :delayed
 end
 
+directory "#{node['stash']['install_path']}/#{node['stash']['product']}/conf" do
+  owner node['stash']['user']
+  mode '0755'
+  recursive true
+  action :create
+  not_if { ::Dir.exist?("#{node['stash']['install_path']}/#{node['stash']['product']}/conf") }
+end
+
+
 template "#{node['stash']['install_path']}/#{node['stash']['product']}/conf/web.xml" do
   if stash_version.major == 1
     source 'web.xml.erb'

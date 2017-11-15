@@ -16,7 +16,7 @@
 
 # Location of application's base directory
 BASE=<%= node['stash']['install_path'] %>/bitbucket
-
+export JAVA_HOME=<%= node['stash']['jvm']['home'] %>
 PIDFILE=/var/run/bitbucket/catalina.pid
 
 if [ ! -d /var/run/bitbucket ]; then

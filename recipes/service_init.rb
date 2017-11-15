@@ -20,6 +20,13 @@ if node['stash']['product'] == 'bitbucket'
   end
 end
 
+log "adding the #{node['stash']['install_path']}/bitbucket/bin/set-bitbucket-home.sh file"
+template "#{node['stash']['install_path']}/bitbucket/bin/set-bitbucket-home.sh" do
+  source 'bitbucket/set-bitbucket-home.sh.erb'
+  owner node['stash']['user']
+  mode '0755'
+end
+
 service node['stash']['product'] do
   supports :status => true, :restart => true
   action [:enable]
